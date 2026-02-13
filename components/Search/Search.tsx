@@ -9,7 +9,7 @@ import css from "./Search.module.css"
 
 export default function Search () {
   const setSearch = useCarsStore((s) => s.setSearch);
-
+  
   const [brand, setBrand] = useState("");
   const [price, setPrice] = useState("");
   const [minMileage, setMinMileage] = useState("");
@@ -41,8 +41,8 @@ export default function Search () {
       </div>
       <div>
         <p className={css.title}>Сar mileage / km</p>
-        <input className={ css.inputStyleBack } placeholder="From" title="From" onChange={(e) => setMinMileage(e.target.value)} />
-        <input className={ css.inputStyleFront } placeholder="To" title="To" onChange={(e) => setMaxMileage(e.target.value)} />
+        <input className={ css.inputStyleBack } placeholder="From"  onChange={(e) => setMinMileage(e.target.value)} />
+        <input className={ css.inputStyleFront } placeholder="To" onChange={(e) => setMaxMileage(e.target.value)} />
       </div>
       <button className={ css.searchButton} onClick={submit}>Search</button>
     </div>

@@ -3,7 +3,6 @@ import { Car } from '@/lib/types/car';
 
 export const api = axios.create({
   baseURL: 'https://car-rental-api.goit.global',
-  // withCredentials: true,
 });
 
 export type FetchCarParams = {

@@ -1,0 +1,31 @@
+.catalog{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; 
+    gap: 48px 32px;
+    width: 1200px;
+    list-style-type: none;
+    margin-top: 56px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.loadMorBtn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+
+    border: 1px solid #3470ff;
+    border-radius: 12px;
+    width: 156px;
+    height: 44px;
+
+    font-weight: 600;
+    font-size: 16px;
+    color: #101828;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 80px;
+    margin-bottom: 100px;
+}

@@ -5,29 +5,48 @@ import Image from 'next/image';
 import { Car } from "@/lib/types/car";
 import { mileageRange } from "@/lib/utils/mileageRange";
 import { useFavoritesStore } from "@/lib/store/favoritesStore";
+import { getCityCountry } from "@/lib/utils/getCityCountry";
 import css from "./CarCard.module.css"
 
-export default function CarCard({ car }: { car: Car }) {
-  const toggleFavorite = useFavoritesStore((s) => s.toggleFavorite);
 
+type CarCardProps = {
+    car: Car;
+}
+  
+export default function CarCard({ car }: CarCardProps) {
+    const { city, country } = getCityCountry(car.address);
+    const toggleFavorite = useFavoritesStore((s) => s.toggleFavorite);
+    const favorites = useFavoritesStore((s) => s.favorites);
+  
+    const isFavorite = favorites.some((fav) => fav.id === car.id);
+  
     return (
     <div>
-        <li>
+        <li className={css.wrapper}>
             <Image src={car.img} alt={car.brand} width={276} height={268} className={css.carImg} />
             <div className={css.carInfo}>
-                <h3>{car.brand} {car.model} {car.year} ${car.rentalPrice}</h3>
-                <p>{car.address} { car.rentalCompany } {car.type} {mileageRange(car.mileage)}</p>
+                <h3 className={css.title}>
+                    <span>{car.brand} <span className={css.span}>{car.model}</span>, {car.year} |</span>
+                    ${car.rentalPrice}
+                </h3>
+                <div className={css.parameters}>
+                    <p className={css.details}> {city} | {country} | {car.rentalCompany} |</p>
+                    <p className={css.details}>{car.type} | {mileageRange(car.mileage)}</p>
+                </div>
+                <Link href={`/catalog/${car.id}`} className={css.button}>Read more</Link>
             </div>
-            <button onClick={() => toggleFavorite(car)}>
                 <Image
-                    src="/icons/like-non-active.svg"
-                    alt="non-active-like-icon"
-                    width={16}
-                    height={16}
-                    priority
+                onClick={() => toggleFavorite(car)}
+                src={
+                    isFavorite
+                    ? "/icons/like-active.svg"
+                    : "/icons/like-non-active.svg"
+                }
+                alt="like icon"
+                width={16}
+                height={16}
+                className={css.likeSvg}
                 />
-            </button>
-            <Link href={`/catalog/${car.id}`} className={css.button}>Read more</Link>
         </li>
     </div>
   );

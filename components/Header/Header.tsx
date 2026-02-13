@@ -24,7 +24,7 @@ const Header = () => {
             <Link href='/'>Home</Link>
           </li>
           <li className={css.navigationLink}>
-            <Link href='/notes/filter/all'>Catalog</Link>
+            <Link href='/catalog'>Catalog</Link>
           </li>
         </ul>
       </nav>

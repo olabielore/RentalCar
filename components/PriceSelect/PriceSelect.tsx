@@ -32,8 +32,7 @@ export default function PriceSelect ({ value, onChange }: PriceProps) {
       className={css.control}
       onClick={() => setOpen(!open)}
     >
-      {value || "Choose a price"}
-        <span />
+      {value ? `To $${value}` : "Choose a price"}
         {open ? (
             <Image src="/icons/top.svg" alt="down-icon" width={16} height={16} className={css.downIcon} priority />
         ) : (
