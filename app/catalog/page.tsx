@@ -11,6 +11,7 @@ export default function Catalog() {
     useCarsStore();
 
   useEffect(() => {
+    useCarsStore.getState().resetCars();
     fetchCars();
   }, [fetchCars]);
 

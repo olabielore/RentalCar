@@ -1,42 +1,34 @@
 import { mileageRange } from "@/lib/utils/mileageRange";
 import { getCarById } from "@/lib/api";
-import Image from 'next/image';
-import { notFound } from "next/navigation";
+import BookingForm from "@/components/BookingForm/BookingForm";
+import Image from "next/image";
+import css from "./id.module.css"
 
-
-type CarPageProps = {
-  params: { id: string };
+type CarDetailsProps = {
+    params: Promise<{
+        id: string;
+    }>;
 };
 
-export default async function CarDetails ({ params }: CarPageProps) {
+export default async function CarDetails({ params }: CarDetailsProps) {
+    const { id } = await params;
 
-  const car = await getCarById(params.id);
-    
+    const car = await getCarById(id);
+
   if (!car) {
-    notFound();
+    return <p>Car not found</p>;
   }
     
     return (
-      <div>
-            <Image src={car.img} alt={`${car.brand} ${car.model}`} width={640} height={512} style={{ objectFit: "cover", borderRadius: 14 }}/>
+      <div className={css.container}>
+            <Image className={css.carImg } src={car.img} alt={`${car.brand} ${car.model}`} width={640} height={512} style={{ objectFit: "cover", borderRadius: 14 }} />
+            <BookingForm/>
         <div>
             <h1>{car.brand} {car.model} {car.year}</h1>
             <p> Id: {car.id}</p>
             <p>{car.address} Mileage: {mileageRange(car.mileage)}</p>
             <p>{car.description}</p>
         </div>
-        <form
-            onSubmit={(e) => {
-            e.preventDefault();
-            alert("Car successfully rented!");
-            }}
-        >
-            <input placeholder="Name" required />
-            <input placeholder="Email" required />
-            <input placeholder="Booking date"/>
-            <textarea placeholder="Comment"></textarea>
-            <button type="submit">Send</button>
-        </form>
         <div>
             <h3>Rental Conditions:</h3>
             <ul> 

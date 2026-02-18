@@ -1,36 +1,29 @@
-
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
-import { useParams } from 'next/navigation';
-import { getCarById } from "@/lib/api";
 import css from "./BookingForm.module.css"
 
-const CarDetails = () => {
-	const { id } = useParams<{ id: string }>();
-
-  const { data: car, isLoading, error } = useQuery({
-    queryKey: ["car", id],
-    queryFn: () => getCarById(id),
-    refetchOnMount: false,
-  });
-
-  if (isLoading) return <p>Loading, please wait...</p>;
-
-  if (error || !car) return <p>Something went wrong.</p>;
+export default function BookingForm() {
 
   return (
-    <div className={css.container}>
-        <div className={css.item}>
-        <div className={css.header}>
-            <h2>{car.brand}</h2>
-        </div>
-        <p className={css.content}>{car.description}</p>
-        <p className={css.date}>{car.img}</p>
-        </div>
-    </div>
-
+    <form
+      className={css.form}
+      onSubmit={(e) => {
+        e.preventDefault();
+        alert("Car successfully rented!");
+      }}
+    >
+      <div className={css.wrapperTitle}>
+        <h3 className={css.title}>Book your car now</h3>
+        <p className={css.paragraph}>Stay connected! We are always ready to help you.</p>
+      </div>
+      <div className={css.wrapperInput}>
+        <input className={css.input} placeholder="Name*" required />
+        <input className={css.input} placeholder="Email*" required />
+        <input className={css.input} placeholder="Booking date" />
+        <textarea className={css.textarea} placeholder="Comment"></textarea>
+        <button className={css.sendBtn } type="submit">Send</button>
+      </div>
+      
+    </form>
   );
-};
-
-export default CarDetails;
+}

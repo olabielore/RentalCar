@@ -42,7 +42,10 @@ export const useCarsStore = create<CarsStore>((set, get) => ({
       const data = await getCars(params);
 
     set({
-      cars: [...cars, ...data.cars],
+      cars: [...cars, ...data.cars.filter(
+        (newCar) => !cars.some((car) => car.id === newCar.id)
+        ),
+      ],
       totalPages: data.totalPages,
       loading: false,
     });
